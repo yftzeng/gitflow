@@ -528,6 +528,8 @@ v,verbose!           Verbose (more) output
 	parse_args "$@"
 	eval set -- "${FLAGS_ARGV}"
 	base=${2:-$DEVELOP_BRANCH}
+	current_branch=$(git_current_branch)
+	[ "${current_branch%/*}" == "product" ] && base=$current_branch
 
 	# Run filter on the version
 	VERSION=$(run_filter_hook release-start-version $VERSION)
